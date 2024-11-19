@@ -1,9 +1,10 @@
+require("dotenv").config();
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 const path = require("path");
 
 // Cargar el archivo .proto
-const PROTO_PATH = path.join(__dirname, "../proto/fileServices.proto");
+const PROTO_PATH = path.join(__dirname, "./proto/fileServices.proto");
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {});
 const fileServicesProto =
   grpc.loadPackageDefinition(packageDefinition).fileServices;
@@ -25,7 +26,7 @@ function main() {
     coverImageService
   );
 
-  const port = "0.0.0.0:50051";
+  port = process.env.PORT;
 
   server.bindAsync(
     port,
@@ -35,8 +36,7 @@ function main() {
         console.error(`Error al iniciar el servidor: ${error.message}`);
         return;
       }
-      console.log(`Servidor gRPC escuchando en el puerto: ${port}`);
-      server.start();
+      console.log(`Servidor gRPC escuchando en el puerto: ${process.env.PORT}`);
     }
   );
 }
