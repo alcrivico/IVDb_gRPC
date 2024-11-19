@@ -1,0 +1,15 @@
+{
+  "name": "ivdb_grpc",
+  "version": "0.0.1",
+  "description": "gRPC server for IVDb project",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --collect-coverage"
+  },
+  "author": "Albhieri Cristoff Villa Contreras",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.12.2",
+    "@grpc/proto-loader": "^0.7.13"
+  }
+}
