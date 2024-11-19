@@ -5,11 +5,13 @@ package fileServices;
 // Definición del servicio ProfileImageService
 service ProfileImageService {
     rpc getProfileImage (ImageRequest) returns (ImageResponse);
+    rpc uploadProfileImage (UploadImageRequest) returns (UploadImageResponse);
 }
 
 // Definición del servicio CoverImageService
 service CoverImageService {
     rpc getCoverImage (ImageRequest) returns (ImageResponse);
+    rpc uploadCoverImage (UploadImageRequest) returns (UploadImageResponse);
 }
 
 // Definición de los mensajes
@@ -19,4 +21,14 @@ message ImageRequest {
 
 message ImageResponse {
     string imageData = 1;
+}
+
+message UploadImageRequest {
+    string fileName = 1;
+    string imageData = 2; // base64 encoded image data
+}
+
+message UploadImageResponse {
+    string message = 1;
+    string filePath = 2;
 }

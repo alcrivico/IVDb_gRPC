@@ -15,6 +15,24 @@ function getCoverImage(call, callback) {
   });
 }
 
+function uploadCoverImage(call, callback) {
+  const { fileName, imageData } = call.request;
+  const filePath = path.join(__dirname, "../static/covers", fileName);
+  const buffer = Buffer.from(imageData, "base64");
+
+  fs.writeFile(filePath, buffer, (err) => {
+    if (err) {
+      callback({
+        code: grpc.status.INTERNAL,
+        message: "Failed to save image",
+      });
+    } else {
+      callback(null, { message: "Image uploaded successfully", filePath });
+    }
+  });
+}
+
 module.exports = {
   getCoverImage,
+  uploadCoverImage,
 };
