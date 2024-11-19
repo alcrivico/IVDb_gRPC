@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package fileServices;
+
+// Definición del servicio ProfileImageService
+service ProfileImageService {
+    rpc getProfileImage (ImageRequest) returns (ImageResponse);
+}
+
+// Definición del servicio CoverImageService
+service CoverImageService {
+    rpc getCoverImage (ImageRequest) returns (ImageResponse);
+}
+
+// Definición de los mensajes
+message ImageRequest {
+    string path = 1;
+}
+
+message ImageResponse {
+    string imageData = 1;
+}
