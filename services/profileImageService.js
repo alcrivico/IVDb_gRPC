@@ -1,5 +1,6 @@
 const fs = require("fs");
 const grpc = require("@grpc/grpc-js");
+const path = require("path");
 
 function getProfileImage(call, callback) {
   const filePath = call.request.path;

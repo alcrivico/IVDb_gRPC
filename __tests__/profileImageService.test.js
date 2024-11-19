@@ -48,4 +48,52 @@ describe("ProfileImageService", () => {
 
     profileImageService.getProfileImage(call, callback);
   });
+
+  test("should upload image successfully", (done) => {
+    const call = {
+      request: {
+        fileName: "test.jpg",
+        imageData: "fakeImageData",
+      },
+    };
+
+    const callback = (error, response) => {
+      expect(error).toBeNull();
+      expect(response).toEqual({
+        message: "Image uploaded successfully",
+        filePath: path.join(__dirname, "../static/profiles/test.jpg"),
+      });
+      done();
+    };
+
+    fs.writeFile.mockImplementation((filePath, buffer, cb) => {
+      cb(null);
+    });
+
+    profileImageService.uploadProfileImage(call, callback);
+  });
+
+  test("should return error if failed to save image", (done) => {
+    const call = {
+      request: {
+        fileName: "test.jpg",
+        imageData: "fakeImageData",
+      },
+    };
+
+    const callback = (error, response) => {
+      expect(error).toEqual({
+        code: grpc.status.INTERNAL,
+        message: "Failed to save image",
+      });
+      expect(response).toBeUndefined();
+      done();
+    };
+
+    fs.writeFile.mockImplementation((filePath, buffer, cb) => {
+      cb(new Error("Failed to save image"));
+    });
+
+    profileImageService.uploadProfileImage(call, callback);
+  });
 });
