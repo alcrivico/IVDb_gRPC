@@ -61,7 +61,7 @@ describe("ProfileImageService", () => {
       expect(error).toBeNull();
       expect(response).toEqual({
         message: "Image uploaded successfully",
-        filePath: path.join(__dirname, "../static/profiles/test.jpg"),
+        imageRoute: path.join(__dirname, "../static/profiles/test.jpg"),
       });
       done();
     };

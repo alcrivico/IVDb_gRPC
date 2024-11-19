@@ -28,7 +28,10 @@ function uploadCoverImage(call, callback) {
         message: "Failed to save image",
       });
     } else {
-      callback(null, { message: "Image uploaded successfully", filePath });
+      callback(null, {
+        message: "Image uploaded successfully",
+        imageRoute: filePath,
+      });
     }
   });
 }

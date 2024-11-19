@@ -61,7 +61,7 @@ describe("CoverImageService", () => {
       expect(error).toBeNull();
       expect(response).toEqual({
         message: "Image uploaded successfully",
-        filePath: path.join(__dirname, "../static/covers/test.jpg"),
+        imageRoute: path.join(__dirname, "../static/covers/test.jpg"),
       });
       done();
     };
