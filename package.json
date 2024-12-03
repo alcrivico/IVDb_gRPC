@@ -4,7 +4,8 @@
   "description": "gRPC server for IVDb project",
   "main": "server.js",
   "scripts": {
-    "test": "jest --collect-coverage"
+    "test": "jest --collect-coverage",
+    "start": "node server.js"
   },
   "author": "Albhieri Cristoff Villa Contreras",
   "license": "Apache-2.0",
