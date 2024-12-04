@@ -96,4 +96,47 @@ describe("ProfileImageService", () => {
 
     profileImageService.uploadProfileImage(call, callback);
   });
+
+  test("should delete image successfully", (done) => {
+    const call = {
+      request: {
+        path: "test.jpg",
+      },
+    };
+
+    const callback = (error, response) => {
+      expect(error).toBeNull();
+      expect(response).toEqual({ message: "Image deleted successfully" });
+      done();
+    };
+
+    fs.unlink.mockImplementation((filePath, cb) => {
+      cb(null);
+    });
+
+    profileImageService.deleteProfileImage(call, callback);
+  });
+
+  test("should return error if failed to delete image", (done) => {
+    const call = {
+      request: {
+        path: "test.jpg",
+      },
+    };
+
+    const callback = (error, response) => {
+      expect(error).toEqual({
+        code: grpc.status.NOT_FOUND,
+        message: "Image not found",
+      });
+      expect(response).toBeUndefined();
+      done();
+    };
+
+    fs.unlink.mockImplementation((filePath, cb) => {
+      cb(new Error("Image not found"));
+    });
+
+    profileImageService.deleteProfileImage(call, callback);
+  });
 });

@@ -96,47 +96,47 @@ describe("CoverImageService", () => {
 
     coverImageService.uploadCoverImage(call, callback);
   });
-});
 
-test("should delete image successfully", (done) => {
-  const call = {
-    request: {
-      path: "test.jpg",
-    },
-  };
+  test("should delete image successfully", (done) => {
+    const call = {
+      request: {
+        path: "test.jpg",
+      },
+    };
 
-  const callback = (error, response) => {
-    expect(error).toBeNull();
-    expect(response).toEqual({ message: "Image deleted successfully" });
-    done();
-  };
+    const callback = (error, response) => {
+      expect(error).toBeNull();
+      expect(response).toEqual({ message: "Image deleted successfully" });
+      done();
+    };
 
-  fs.unlink.mockImplementation((filePath, cb) => {
-    cb(null);
-  });
-
-  coverImageService.deleteCoverImage(call, callback);
-});
-
-test("should return error if failed to delete image", (done) => {
-  const call = {
-    request: {
-      path: "nonexistent.jpg",
-    },
-  };
-
-  const callback = (error, response) => {
-    expect(error).toEqual({
-      code: grpc.status.NOT_FOUND,
-      message: "Image not found",
+    fs.unlink.mockImplementation((filePath, cb) => {
+      cb(null);
     });
-    expect(response).toBeUndefined();
-    done();
-  };
 
-  fs.unlink.mockImplementation((filePath, cb) => {
-    cb(new Error("File not found"));
+    coverImageService.deleteCoverImage(call, callback);
   });
 
-  coverImageService.deleteCoverImage(call, callback);
+  test("should return error if failed to delete image", (done) => {
+    const call = {
+      request: {
+        path: "nonexistent.jpg",
+      },
+    };
+
+    const callback = (error, response) => {
+      expect(error).toEqual({
+        code: grpc.status.NOT_FOUND,
+        message: "Image not found",
+      });
+      expect(response).toBeUndefined();
+      done();
+    };
+
+    fs.unlink.mockImplementation((filePath, cb) => {
+      cb(new Error("File not found"));
+    });
+
+    coverImageService.deleteCoverImage(call, callback);
+  });
 });
