@@ -23,7 +23,7 @@ describe("ProfileImageService", () => {
       cb(null, "fakeImageData");
     });
 
-    profileImageService.getProfileImage(call, callback);
+    profileImageService.downloadProfileImage(call, callback);
   });
 
   test("should return error if file does not exist", (done) => {
@@ -46,7 +46,7 @@ describe("ProfileImageService", () => {
       cb(new Error("File not found"));
     });
 
-    profileImageService.getProfileImage(call, callback);
+    profileImageService.downloadProfileImage(call, callback);
   });
 
   test("should upload image successfully", (done) => {

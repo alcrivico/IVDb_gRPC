@@ -2,7 +2,7 @@ const fs = require("fs");
 const grpc = require("@grpc/grpc-js");
 const path = require("path");
 
-function getProfileImage(call, callback) {
+function downloadProfileImage(call, callback) {
   const filePath = call.request.path;
   fs.readFile(filePath, "base64", (err, data) => {
     if (err) {
@@ -36,7 +36,22 @@ function uploadProfileImage(call, callback) {
   });
 }
 
+function deleteProfileImage(call, callback) {
+  const filePath = call.request.path;
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      callback({
+        code: grpc.status.NOT_FOUND,
+        message: "Image not found",
+      });
+    } else {
+      callback(null, { message: "Image deleted successfully" });
+    }
+  });
+}
+
 module.exports = {
-  getProfileImage,
+  downloadProfileImage,
   uploadProfileImage,
+  deleteProfileImage,
 };
