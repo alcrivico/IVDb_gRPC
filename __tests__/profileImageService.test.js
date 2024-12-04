@@ -9,7 +9,7 @@ describe("ProfileImageService", () => {
   test("should return image data if file exists", (done) => {
     const call = {
       request: {
-        path: "test.jpg",
+        path: "../profiles/test.jpg",
       },
     };
 
@@ -29,7 +29,7 @@ describe("ProfileImageService", () => {
   test("should return error if file does not exist", (done) => {
     const call = {
       request: {
-        path: "nonexistent.jpg",
+        path: "../profiles/nonexistent.jpg",
       },
     };
 
@@ -100,7 +100,7 @@ describe("ProfileImageService", () => {
   test("should delete image successfully", (done) => {
     const call = {
       request: {
-        path: "test.jpg",
+        path: "../profiles/test.jpg",
       },
     };
 
@@ -120,7 +120,7 @@ describe("ProfileImageService", () => {
   test("should return error if failed to delete image", (done) => {
     const call = {
       request: {
-        path: "test.jpg",
+        path: "../profiles/nonexistent.jpg",
       },
     };
 
