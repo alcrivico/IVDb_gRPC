@@ -3,7 +3,8 @@ const grpc = require("@grpc/grpc-js");
 const path = require("path");
 
 function downloadProfileImage(call, callback) {
-  const filePath = call.request.path;
+  const baseDir = path.join(__dirname, "../static/profiles");
+  const filePath = path.join(baseDir, call.request.path);
   fs.readFile(filePath, "base64", (err, data) => {
     if (err) {
       callback({
@@ -37,7 +38,8 @@ function uploadProfileImage(call, callback) {
 }
 
 function deleteProfileImage(call, callback) {
-  const filePath = call.request.path;
+  const baseDir = path.join(__dirname, "../static/profiles");
+  const filePath = path.join(baseDir, call.request.path);
   fs.unlink(filePath, (err) => {
     if (err) {
       callback({
