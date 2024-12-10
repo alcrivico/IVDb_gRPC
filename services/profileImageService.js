@@ -7,11 +7,13 @@ function downloadProfileImage(call, callback) {
   const filePath = path.join(baseDir, call.request.path);
   fs.readFile(filePath, "base64", (err, data) => {
     if (err) {
+      console.error("No se encontró la imagen: ", err);
       callback({
         code: grpc.status.NOT_FOUND,
         message: "Image not found",
       });
     } else {
+      console.log("Imagen encontrada en: ", filePath);
       callback(null, { imageData: data });
     }
   });
@@ -24,14 +26,16 @@ function uploadProfileImage(call, callback) {
 
   fs.writeFile(filePath, buffer, (err) => {
     if (err) {
+      console.error("Error al guardar la imagen: ", err);
       callback({
         code: grpc.status.INTERNAL,
         message: "Failed to save image",
       });
     } else {
+      console.log("Imagen guardada en: ", filePath);
       callback(null, {
         message: "Image uploaded successfully",
-        imageRoute: filePath,
+        imageRoute: fileName,
       });
     }
   });
@@ -42,11 +46,13 @@ function deleteProfileImage(call, callback) {
   const filePath = path.join(baseDir, call.request.path);
   fs.unlink(filePath, (err) => {
     if (err) {
+      console.error("No se encontró la imagen: ", err);
       callback({
         code: grpc.status.NOT_FOUND,
         message: "Image not found",
       });
     } else {
+      console.log("Imagen eliminada en: ", filePath);
       callback(null, { message: "Image deleted successfully" });
     }
   });
